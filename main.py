@@ -56,26 +56,27 @@ def closest_match(list, target):
 
 
 #size down the profile image and save as result.jpg
-img = Image.open("sample-profile.jpg")
+img = Image.open("test-gradient.jpg")
 result = img.resize((70,70), resample=Image.BILINEAR)
 result.save("result.jpg")
 
 #TODO
 #calculate the brightness of each pixel in result.jpg
-im = Image.open("result.jpg")
+im = Image.open("result.jpg").convert('L')
+print(np.shape(im))
 profile_brightness = np.zeros((70,70))
-imarr = result.getdata()
-finalimg = np.array(imarr)
-finalimg = np.reshape(finalimg, (70,70,3))
+imarr = im.getdata()
+imarr = np.array(imarr)
+imarr = np.reshape(imarr, (70,70))
+print(imarr)
 rgb_count = 0
 for i in range(70):
     for j in range(70):
-        for k in range(3):
-            rgb_count += finalimg[i][j][k]
-            rgb_count /= 3
-            #b = (R+G+B)/3
-            profile_brightness[i][j]=rgb_count
-#print(profile_brightness[0].astype(int))
+        profile_brightness[i][j]= imarr[i][j]
+print("")
+print("profile_brightness:")
+print(np.array(profile_brightness[0].astype(int)))
+
 
 #return result.jpg to regular size
 result = result.resize(img.size, Image.NEAREST)
@@ -95,7 +96,9 @@ for i in range(len(allimg_names)):
     allimg_brightness.append(b)
 allimg = merge(allimg_brightness, allimg_names)
 allimg = sorted(allimg)
-#print(sorted(allimg_brightness))
+print(allimg[len(allimg)-1])
+
+
 
 #create a placement_ref array whos values are the allimg index that best matches the profile image brightness at each coordinate
 placement_ref = np.zeros((70,70))
@@ -103,37 +106,42 @@ for i in range(70):
     for j in range(70):
         placement_ref[i][j] = closest_match(allimg, profile_brightness[i][j])
 placement_ref = placement_ref.astype(int)
-#print(placement_ref)
+print("")
+print("placement_ref:")
+print(placement_ref[0])
+
+
 
 tilecount = 0
 final_mosiac = np.zeros((1960,1960,3))
-x_count = y_count = x_offset = y_offset = 0
 print("BUILDING MOSIAC (Window will pop up when complete)")
+
+#iterate through placement_ref
 for i in range(70):
-    y_offset = (y_count*28)%1960
+    y_offset = (i*28)%1960
     for j in range(70):
-        x_offset = (x_count*28)%1960
+        x_offset = (j*28)%1960
         tilepath = allimg[placement_ref[i][j]][1]
         tile = Image.open(tilepath)
         tile = tile.getdata()
         tile_array = np.array(tile)
         tile_array = np.reshape(tile_array, (28,28,3))
-
         #fill in a tile
         for i in range(28):
             for j in range(28):
                 for k in range(3):
                     final_mosiac[i+x_offset][j+y_offset][k] = tile_array[i][j][k]
-        x_count+=1
         print(str(tilecount+1)+"/4900 tiles...", end = '\r')
         tilecount+=1
-    y_count+=1
 print("")
 print("Mosiac finished - displaying...")
 #(1960, 1960, 3)
 plt.imshow(final_mosiac/255)
 plt.show()
 print("END OF PROGRAM")
+
+
+
 
 """
 arr = np.zeros((120,120,3))
