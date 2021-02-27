@@ -1,4 +1,4 @@
-# MosiacOfMe
+# MosaicOfMe
 *Reject humanity, return to ~~monke~~ mosaic.*  An interactive art piece that turns you into a mosaic of your interests. Built with python 3.9
 
 ## Prerequisites
@@ -16,7 +16,8 @@ Run main.py
 py main.py
 ```
 ## TODO:
-- [ ] Troubleshoot #calculate the brightness of each pixel in result.jpg
+- [ ] Troubleshoot the final_mosaic creation
+- [X] Test #calculate the brightness of each pixel in result.jpg
 - [X] Test closest_match
 - [ ] Show full image on hover
 - [ ] Match based off of color
