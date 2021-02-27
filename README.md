@@ -1,6 +1,5 @@
 # MosiacOfMe
-*Reject humanity, return to ~~monke~~ mosiac.*
-An interactive art piece that turns you into a mosiac of your interests. Built with python 3.9
+*Reject humanity, return to ~~monke~~ mosaic.*  An interactive art piece that turns you into a mosaic of your interests. Built with python 3.9
 
 ## Prerequisites
 numpy, PIL, bs4
