@@ -56,7 +56,7 @@ def closest_match(list, target):
 
 
 #size down the profile image and save as result.jpg
-img = Image.open("test-gradient.jpg")
+img = Image.open("sample-profile.jpg")
 result = img.resize((70,70), resample=Image.BILINEAR)
 result.save("result.jpg")
 
@@ -75,7 +75,7 @@ for i in range(70):
         profile_brightness[i][j]= imarr[i][j]
 print("")
 print("profile_brightness:")
-print(np.array(profile_brightness[0].astype(int)))
+print(np.array(profile_brightness[len(profile_brightness)-1].astype(int)))
 
 
 #return result.jpg to regular size
@@ -96,7 +96,6 @@ for i in range(len(allimg_names)):
     allimg_brightness.append(b)
 allimg = merge(allimg_brightness, allimg_names)
 allimg = sorted(allimg)
-print(allimg[len(allimg)-1])
 
 
 
@@ -108,35 +107,35 @@ for i in range(70):
 placement_ref = placement_ref.astype(int)
 print("")
 print("placement_ref:")
-print(placement_ref[0])
+print(placement_ref[len(placement_ref)-1])
 
 
 
 tilecount = 0
-final_mosaic = np.zeros((1960,1960,3))
-print("BUILDING MOSAIC (Window will pop up when complete)")
+final_mosiac = np.zeros((1960,1960,3))
+print("BUILDING MOSIAC (Window will pop up when complete)")
 
 #iterate through placement_ref
 for i in range(70):
-    y_offset = (i*28)%1960
+    y_offset = (i*28)
     for j in range(70):
-        x_offset = (j*28)%1960
+        x_offset = (j*28)
         tilepath = allimg[placement_ref[i][j]][1]
         tile = Image.open(tilepath)
         tile = tile.getdata()
         tile_array = np.array(tile)
         tile_array = np.reshape(tile_array, (28,28,3))
         #fill in a tile
-        for i in range(28):
-            for j in range(28):
-                for k in range(3):
-                    final_mosaic[i+x_offset][j+y_offset][k] = tile_array[i][j][k]
+        for a in range(28):
+            for b in range(28):
+                for c in range(3):
+                    final_mosiac[a+x_offset][b+y_offset][c] = tile_array[a][b][c]
         print(str(tilecount+1)+"/4900 tiles...", end = '\r')
         tilecount+=1
 print("")
-print("Mosaic finished - displaying...")
+print("Mosiac finished - displaying...")
 #(1960, 1960, 3)
-plt.imshow(final_mosaic/255)
+plt.imshow(final_mosiac/255)
 plt.show()
 print("END OF PROGRAM")
 
