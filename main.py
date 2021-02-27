@@ -24,10 +24,10 @@ rootDir = 'pictures'
 #makes everything in pictures directory small
 for dirName, subdirList, fileList in os.walk(rootDir):
     for fname in fileList:
-        imgpath = dirName+"\\"+fname
+        imgpath = dirName+"/"+fname
         im = Image.open(imgpath)
         im = im.resize((28,28), resample = Image.BILINEAR)
-        im.save(dirName+"\\"+fname,"JPEG")
+        im.save(dirName+"/"+fname,"JPEG")
 
 #helper function to merge two lists of same size into one list of tuples
 #returns merged list
@@ -120,10 +120,10 @@ for i in range(70):
         tile_array = np.reshape(tile_array, (28,28,3))
 
         #fill in a tile
-        for i in range(28):
-            for j in range(28):
-                for k in range(3):
-                    final_mosiac[i+x_offset][j+y_offset][k] = tile_array[i][j][k]
+        for a in range(28):
+            for b in range(28):
+                for c in range(3):
+                    final_mosiac[b+y_offset][a+x_offset][c] = tile_array[b][a][c]
         x_count+=1
         print(str(tilecount+1)+"/4900 tiles...", end = '\r')
         tilecount+=1
