@@ -113,8 +113,8 @@ print(placement_ref[0])
 
 
 tilecount = 0
-final_mosiac = np.zeros((1960,1960,3))
-print("BUILDING MOSIAC (Window will pop up when complete)")
+final_mosaic = np.zeros((1960,1960,3))
+print("BUILDING MOSAIC (Window will pop up when complete)")
 
 #iterate through placement_ref
 for i in range(70):
@@ -130,13 +130,13 @@ for i in range(70):
         for i in range(28):
             for j in range(28):
                 for k in range(3):
-                    final_mosiac[i+x_offset][j+y_offset][k] = tile_array[i][j][k]
+                    final_mosaic[i+x_offset][j+y_offset][k] = tile_array[i][j][k]
         print(str(tilecount+1)+"/4900 tiles...", end = '\r')
         tilecount+=1
 print("")
-print("Mosiac finished - displaying...")
+print("Mosaic finished - displaying...")
 #(1960, 1960, 3)
-plt.imshow(final_mosiac/255)
+plt.imshow(final_mosaic/255)
 plt.show()
 print("END OF PROGRAM")
 
