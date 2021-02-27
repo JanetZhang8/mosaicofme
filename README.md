@@ -17,7 +17,13 @@ Run main.py
 py main.py
 ```
 ## TODO:
-- [ ] Troubleshoot #calculate the brightness of each pixel in result.jpg
+
+### Basic:
+- [X] Troubleshoot #calculate the brightness of each pixel in result.jpg
 - [X] Test closest_match
+- [X] Fixed basic image tiling
+- [ ] Rotate image LOL
+
+### Extra:
 - [ ] Show full image on hover
 - [ ] Match based off of color
